@@ -32,27 +32,29 @@ const Auth = (props: Props) => {
     auth.onAuthStateChanged((user: User) => {
       console.log('onAuthStateChanged')
       if (user) {
-        console.log('userいるよ')
         setUser(user)
-        user.getIdToken().then(token => {
-          console.log('これtokenだよ', token)
-          fetch('/api/login', {
-            method: 'POST',
-            headers: new Headers({ 'Content-Type': 'application/json' }),
-            credentials: 'same-origin',
-            body: JSON.stringify({ token })
+        return user
+          .getIdToken()
+          .then((token: string) => {
+            console.log('これtokenだよ', token)
+            return fetch('/api/login', {
+              method: 'POST',
+              headers: new Headers({ 'Content-Type': 'application/json' }),
+              credentials: 'same-origin',
+              body: JSON.stringify({ token })
+            })
           })
-          console.log('status: logged in')
-          console.log('call: addDbListener')
-          addDbListener()
-        })
+          .then(() => addDbListener())
+          .catch(() => {
+            console.log('失敗してるで')
+          })
       } else {
-        setUser(user)
+        setUser(null)
+        // eslint-disable-next-line no-undef
         fetch('/api/logout', {
           method: 'POST',
           credentials: 'same-origin'
-        })
-        removeDbListener()
+        }).then(() => removeDbListener())
       }
     })
   }, [])
