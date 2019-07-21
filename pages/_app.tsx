@@ -3,8 +3,7 @@ import { Provider } from 'react-redux'
 import { NextComponentType } from 'next'
 import App, { Container } from 'next/app'
 import withRedux from 'next-redux-wrapper'
-import initializeStore from '../src/states/store'
-import Auth from '../src/components/auth'
+import initializeStore from '../client/states/store'
 
 interface Props {
   Component: NextComponentType<any, any, any>
@@ -27,7 +26,6 @@ class MyApp extends App<Props> {
       <Container>
         <Provider store={store}>
           <Component {...pageProps} />
-          <Auth />
         </Provider>
       </Container>
     )

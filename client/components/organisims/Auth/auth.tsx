@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
 import 'isomorphic-unfetch'
-import { auth, db, googleAuthProvider } from '../lib/firebase/client'
+import { auth, db, googleAuthProvider } from '../../../../lib/firebase/client'
+import { User } from '../../../../lib/firebase/type'
 import { Request } from 'express'
 
 interface Message {
@@ -9,10 +10,10 @@ interface Message {
 }
 
 interface Props {
-  user?: any
+  user?: User
   value?: string
   messages?: Message[]
-  unsubscribe?: any
+  unsubscribe?: () => void
 }
 
 interface InitialProps {
@@ -20,19 +21,6 @@ interface InitialProps {
 }
 
 export default class Auth extends Component<Props> {
-  static async getInitialProps({ req }: any) {
-    const user = req ? req.decodedToken : null
-    // don't fetch anything from firebase if the user is not found
-    const snap =
-      user &&
-      (await req.firebaseServer
-        .database()
-        .ref('messages')
-        .once('value'))
-    const messages = snap && snap.val()
-    return { user, messages }
-  }
-
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -49,16 +37,14 @@ export default class Auth extends Component<Props> {
 
   componentDidMount(this: any) {
     if (this.state.user) this.addDbListener()
-    auth.onAuthStateChanged((user: any) => {
+    auth.onAuthStateChanged((user: User) => {
       if (user) {
         this.setState({ user: user })
         return user
           .getIdToken()
           .then((token: any) => {
-            // eslint-disable-next-line no-undef
             return fetch('/api/login', {
               method: 'POST',
-              // eslint-disable-next-line no-undef
               headers: new Headers({ 'Content-Type': 'application/json' }),
               credentials: 'same-origin',
               body: JSON.stringify({ token })
@@ -78,7 +64,7 @@ export default class Auth extends Component<Props> {
 
   addDbListener() {
     let unsubscribe = db.collection('messages').onSnapshot(
-      (querySnapshot: any) => {
+      (querySnapshot: firebase.firestore.QuerySnapshot) => {
         let messages = [] as Message[]
         querySnapshot.forEach((doc: any) => {
           const message = {

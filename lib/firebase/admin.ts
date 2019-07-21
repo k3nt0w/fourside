@@ -4,7 +4,7 @@ const firebaseAdmin = !admin.apps.length
   ? admin.initializeApp(
       {
         credential: admin.credential.cert(
-          require('../../../credentials/server.json')
+          require('../../credentials/server.json')
         )
       },
       'server'

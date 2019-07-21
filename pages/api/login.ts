@@ -1,5 +1,5 @@
 import { Request, Response } from './type'
-import { auth, firebaseAdmin } from '../../src/lib/firebase/admin'
+import { auth, firebaseAdmin } from '../../lib/firebase/admin'
 import { cookies } from './config'
 
 export default (req: Request, res: Response) => {
