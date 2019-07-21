@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import 'isomorphic-unfetch'
 import { auth, db, googleAuthProvider } from '../lib/firebase/client'
+import { Request } from 'express'
 
 interface Message {
-  id: any
+  id: string
   text: string
 }
 
@@ -14,9 +15,13 @@ interface Props {
   unsubscribe?: any
 }
 
+interface InitialProps {
+  req: Request
+}
+
 export default class Auth extends Component<Props> {
   static async getInitialProps({ req }: any) {
-    const user = req && req.session ? req.session.decodedToken : null
+    const user = req ? req.decodedToken : null
     // don't fetch anything from firebase if the user is not found
     const snap =
       user &&
