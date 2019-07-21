@@ -1,7 +1,5 @@
 import admin from 'firebase-admin'
 
-console.log(admin.apps.length)
-
 const firebaseAdmin = !admin.apps.length
   ? admin.initializeApp(
       {
