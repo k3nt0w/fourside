@@ -13,7 +13,6 @@ interface Props {
 
 class MyApp extends App<Props> {
   static async getInitialProps({ Component, ctx }: any) {
-    console.log('call: MyApp getInitialProps')
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
       : {}
