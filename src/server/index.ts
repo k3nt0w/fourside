@@ -1,70 +1,48 @@
 import express, { Application, NextFunction, Request, Response } from 'express'
-import bodyParser from 'body-parser'
-import session from 'express-session'
-import sessionFileStore from 'session-file-store'
 import next from 'next'
-import admin from 'firebase-admin'
+import { auth, firebaseAdmin } from '../lib/firebase/admin'
+import { config } from './config'
 
-const FileStore = sessionFileStore(session)
 const port = (!!process.env.PORT && parseInt(process.env.PORT, 10)) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const firebase = admin.initializeApp(
-  {
-    credential: admin.credential.cert(require('../../credentials/server')),
-    databaseURL: '' // TODO database URL goes here
-  },
-  'server'
-)
-
 app.prepare().then(() => {
   const server: Application = express()
 
-  server.use(bodyParser.json())
-  server.use(
-    session({
-      secret: 'geheimnis',
-      saveUninitialized: true,
-      store: new FileStore({ path: '/tmp/sessions', secret: 'geheimnis' }),
-      resave: false,
-      rolling: true,
-      httpOnly: true,
-      cookie: { maxAge: 604800000 } // week
-    })
-  )
+  server.use(config.bodyParser)
+  server.use(config.session)
 
-  server.use((req: any, _: Response, next: NextFunction) => {
-    req.firebaseServer = firebase
+  server.use((req: Request, _: Response, next: NextFunction) => {
+    req.firebaseServer = firebaseAdmin
     next()
   })
 
-  server.post('/api/login', (req: any, res: any) => {
+  server.post('/api/login', (req: Request, res: Response) => {
     if (!req.body) return res.sendStatus(400)
 
     const token = req.body.token
-    firebase
-      .auth()
+    auth
       .verifyIdToken(token)
-      .then((decodedToken: any) => {
+      .then(decodedToken => {
         req.session.decodedToken = decodedToken
         return decodedToken
       })
-      .then((decodedToken: any) => res.json({ status: true, decodedToken }))
-      .catch((error: any) => res.json({ error }))
+      .then(decodedToken => res.json({ status: true, decodedToken }))
+      .catch((error: Error) => res.json({ error }))
   })
 
-  server.post('/api/logout', (req: any, res: any) => {
+  server.post('/api/logout', (req: Request, res: Response) => {
     req.session.decodedToken = null
     res.json({ status: true })
   })
 
-  server.get('*', (req: any, res: any) => {
+  server.get('*', (req: Request, res: Response) => {
     return handle(req, res)
   })
 
-  server.listen(port, (err: any) => {
+  server.listen(port, (err: Error) => {
     if (err) throw err
     console.log(`> Ready on http://localhost:${port}`)
   })
