@@ -32,8 +32,10 @@ const Auth = (props: Props) => {
     auth.onAuthStateChanged(async (user: User) => {
       console.log('onAuthStateChanged')
       if (user) {
+        console.log('userいるよ')
         setUser(user)
         const token = await user.getIdToken()
+        console.log('これtokenだよ', token)
         await fetch('/api/login', {
           method: 'POST',
           headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -83,6 +85,7 @@ const Auth = (props: Props) => {
 
   const removeDbListener = () => {
     if (unsubscribe) {
+      console.log('call: removeDbListener')
       unsubscribe()
     }
   }
@@ -94,13 +97,14 @@ const Auth = (props: Props) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const date = new Date().getTime()
+    console.log('call: handleSubmit', value)
     db.collection('messages')
       .doc(`${date}`)
       .set({
         id: date,
         text: value
       })
-    setValue(value)
+    setValue('')
   }
 
   const handleLogin = () => {
@@ -116,6 +120,7 @@ const Auth = (props: Props) => {
       {console.log('user: ', user)}
       {console.log('value:', value)}
       {console.log('messages:', messages)}
+      {console.log('unsubscribe:', unsubscribe)}
 
       {user ? (
         <>
