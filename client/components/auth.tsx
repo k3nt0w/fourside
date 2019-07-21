@@ -29,25 +29,26 @@ const Auth = (props: Props) => {
   useEffect(() => {
     console.log('useEffect')
     if (user) addDbListener()
-    auth.onAuthStateChanged(async (user: User) => {
+    auth.onAuthStateChanged((user: User) => {
       console.log('onAuthStateChanged')
       if (user) {
         console.log('userいるよ')
         setUser(user)
-        const token = await user.getIdToken()
-        console.log('これtokenだよ', token)
-        await fetch('/api/login', {
-          method: 'POST',
-          headers: new Headers({ 'Content-Type': 'application/json' }),
-          credentials: 'same-origin',
-          body: JSON.stringify({ token })
+        user.getIdToken().then(token => {
+          console.log('これtokenだよ', token)
+          fetch('/api/login', {
+            method: 'POST',
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+            credentials: 'same-origin',
+            body: JSON.stringify({ token })
+          })
+          console.log('status: logged in')
+          console.log('call: addDbListener')
+          addDbListener()
         })
-        console.log('status: logged in')
-        console.log('call: addDbListener')
-        addDbListener()
       } else {
         setUser(user)
-        await fetch('/api/logout', {
+        fetch('/api/logout', {
           method: 'POST',
           credentials: 'same-origin'
         })
