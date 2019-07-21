@@ -3,7 +3,7 @@ import admin from 'firebase-admin'
 declare global {
   namespace Express {
     export interface Request {
-      firebaseServer?: any
+      firebaseServer?: admin.app.App
       session?: {
         decodedToken: admin.auth.DecodedIdToken
       }
