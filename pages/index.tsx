@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Examples from '../src/components/example'
 import { clockOperations, clockActions } from '../src/states/modules/clock'
+import { Clock } from '../src/components/organisims/Clock'
+import { Counter } from '../src/components/organisims/Counter'
 
 interface Props {
   timer: number
@@ -37,7 +38,12 @@ class Index extends React.Component<Props & Handlers> {
   }
 
   render() {
-    return <Examples />
+    return (
+      <div>
+        <Clock />
+        <Counter />
+      </div>
+    )
   }
 }
 const mapDispatchToProps: Handlers = { start: clockOperations.start }

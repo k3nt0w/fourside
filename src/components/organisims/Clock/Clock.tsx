@@ -1,9 +1,9 @@
 export interface Props {
-  lastUpdate: any
-  light: any
+  lastUpdate: number
+  light: boolean
 }
 
-const Clock = ({ lastUpdate, light }: Props) => {
+export const Clock = ({ lastUpdate, light }: Props) => {
   return (
     <div className={light ? 'light' : ''}>
       {format(new Date(lastUpdate))}
@@ -24,5 +24,3 @@ const Clock = ({ lastUpdate, light }: Props) => {
 }
 
 const format = (time: Date) => time.toJSON().slice(11, 19) // cut off except hh:mm:ss
-
-export default Clock
