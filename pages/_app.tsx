@@ -4,7 +4,6 @@ import { NextComponentType } from 'next'
 import App, { Container } from 'next/app'
 import withRedux from 'next-redux-wrapper'
 import initializeStore from '../client/states/store'
-import Auth from '../client/components/auth'
 
 interface Props {
   Component: NextComponentType<any, any, any>
@@ -14,6 +13,7 @@ interface Props {
 
 class MyApp extends App<Props> {
   static async getInitialProps({ Component, ctx }: any) {
+    console.log('call: MyApp getInitialProps')
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
       : {}
@@ -27,7 +27,6 @@ class MyApp extends App<Props> {
       <Container>
         <Provider store={store}>
           <Component {...pageProps} />
-          <Auth />
         </Provider>
       </Container>
     )

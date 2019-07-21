@@ -3,9 +3,13 @@ import { connect } from 'react-redux'
 import { clockOperations, clockActions } from '../client/states/modules/clock'
 import { Clock } from '../client/components/organisims/Clock'
 import { Counter } from '../client/components/organisims/Counter'
+import Auth from '../client/components/auth'
+import { User } from '../lib/firebase/type'
 
 interface Props {
   timer: number
+  user: User
+  messages: []
 }
 
 interface Handlers {
@@ -17,12 +21,23 @@ class Index extends React.Component<Props & Handlers> {
     super(props)
   }
 
-  static getInitialProps({ store }: any) {
+  static async getInitialProps({ req, store }: any) {
+    console.log('call: Index getInitialProps')
     // const isServer = !!req
     // DISPATCH ACTIONS HERE ONLY WITH `reduxStore.dispatch`
     store.dispatch(clockActions.serverRender())
-
-    return {}
+    console.log('call: **** getInitialProps ****')
+    const user = req ? req.decodedToken : null
+    console.log(user)
+    // don't fetch anything from firebase if the user is not found
+    const snap =
+      user &&
+      (await req.firebaseServer
+        .database()
+        .ref('messages')
+        .once('value'))
+    const messages = snap && snap.val()
+    return { user, messages }
   }
 
   componentDidMount(this: any) {
@@ -38,8 +53,10 @@ class Index extends React.Component<Props & Handlers> {
   }
 
   render() {
+    const { user, messages } = this.props
     return (
       <div>
+        <Auth user={user} messages={messages} />
         <Clock />
         <Counter />
       </div>
