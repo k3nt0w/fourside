@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { clockOperations, clockActions } from '../src/states/modules/clock'
-import { Clock } from '../src/components/organisims/Clock'
-import { Counter } from '../src/components/organisims/Counter'
+import { clockOperations, clockActions } from '../client/states/modules/clock'
+import { Clock } from '../client/components/organisims/Clock'
+import { Counter } from '../client/components/organisims/Counter'
 
 interface Props {
   timer: number
