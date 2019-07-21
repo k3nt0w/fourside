@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react'
 import 'isomorphic-unfetch'
-import { auth, db, googleAuthProvider } from '../lib/firebase/client'
+import { auth, db, googleAuthProvider } from '../../lib/firebase/client'
 import { Request } from 'express'
 
 interface Message {
