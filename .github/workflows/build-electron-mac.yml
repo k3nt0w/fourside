@@ -1,0 +1,25 @@
+name: build-electron-mac
+
+on:
+  push:
+    branches:
+      - 'build/electron/*'
+    tags:
+      - 'build/electron/*'
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - run: yarn install --frozen-lockfile --network-concurrency 1
+      - run: yarn workspace @fourside/electron clean
+        shell: bash
+      - run: yarn workspace @fourside/interface build
+      - run: yarn workspace @fourside/electron build:mac:prod
+        env:
+          DEPLOY_ELECTRON: true
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
