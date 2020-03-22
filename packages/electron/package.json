@@ -15,6 +15,7 @@
     "start": "yarn build:dev && yarn start:server",
     "start:prod": "yarn build:prod && electron ./dist/main.js",
     "start:server": "webpack-dev-server --config ./configs/webpack/webpack.config.server.babel.ts",
+    "storybook": "start-storybook",
     "lint": "eslint --fix -c ./.eslintrc.json './src/**/*.{ts,tsx}'",
     "test": "jest",
     "clean": "rimraf dist",
