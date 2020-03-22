@@ -9,26 +9,16 @@ const pushLogin: Operation = () => (dispatch, getState) => {
   }
 }
 
-const pushHistory: Operation = () => (dispatch, getState) => {
+const pushSample: Operation = () => (dispatch, getState) => {
   const state = getState()
   const pathName = routerSelectors.getPathname(state)
 
-  if (pathName !== '/history') {
-    dispatch(routerActions.pushHistory())
-  }
-}
-
-const pushSendjpys: Operation = () => (dispatch, getState) => {
-  const state = getState()
-  const pathName = routerSelectors.getPathname(state)
-
-  if (pathName !== '/sendjpys') {
-    dispatch(routerActions.pushSendjpys())
+  if (pathName !== '/sample') {
+    dispatch(routerActions.pushSample())
   }
 }
 
 export const operations = {
   pushLogin,
-  pushHistory,
-  pushSendjpys
+  pushSample
 }
