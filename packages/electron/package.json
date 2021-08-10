@@ -82,7 +82,7 @@
     "html-webpack-plugin": "5.3.2",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
-    "react-hot-loader": "4.12.20",
+    "react-hot-loader": "4.13.0",
     "redux-devtools-extension": "2.13.8",
     "redux-mock-store": "1.5.4",
     "source-map-loader": "0.2.4",
