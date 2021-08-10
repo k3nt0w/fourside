@@ -145,3 +145,6 @@ server/main.js
 server/main.js.map
 firebase/admin.js
 firebase/admin.js.map
+
+# development
+.node-version

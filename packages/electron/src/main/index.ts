@@ -1,6 +1,14 @@
 import { App, app, BrowserWindow, ipcMain, globalShortcut, Menu } from 'electron'
-import loadDevtool from 'electron-load-devtool'
+import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer'
 import { name, version } from '../../package.json'
+
+if (process.env.NODE_ENV === 'development') {
+  app.whenReady().then(() => {
+    installExtension(REDUX_DEVTOOLS, { loadExtensionOptions: { allowFileAccess: true } }).catch((err) =>
+      console.error('An error occurred: ', err)
+    )
+  })
+}
 
 class Main {
   private mainWindow: BrowserWindow | null = null
@@ -15,7 +23,7 @@ class Main {
     this.app.on('activate', this.onActivated.bind(this))
     this.app.setAboutPanelOptions({
       applicationName: `${name}`,
-      applicationVersion: `App Version: ${version}`
+      applicationVersion: `App Version: ${version}`,
     })
   }
 
@@ -34,8 +42,8 @@ class Main {
       acceptFirstMouse: true,
       frame: true,
       webPreferences: {
-        nodeIntegration: true
-      }
+        nodeIntegration: true,
+      },
     })
 
     this.mainWindow.loadURL(this.mainURL)
@@ -48,11 +56,6 @@ class Main {
       this.mainWindow = null
     })
 
-    if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'development' || process.env.WITH_DEV_TOOL) {
-      loadDevtool(loadDevtool.REDUX_DEVTOOLS)
-      loadDevtool(loadDevtool.REACT_DEVELOPER_TOOLS)
-    }
-
     // Create the Application's main menu
     const template: Electron.MenuItemConstructorOptions[] = [
       {
@@ -60,7 +63,7 @@ class Main {
         submenu: [
           {
             label: 'About Application',
-            role: 'about'
+            role: 'about',
           },
           { type: 'separator' },
           {
@@ -69,9 +72,9 @@ class Main {
             click: () => {
               app.quit()
             },
-            role: 'quit'
-          }
-        ]
+            role: 'quit',
+          },
+        ],
       },
       {
         label: 'Edit',
@@ -80,13 +83,13 @@ class Main {
           {
             label: 'Redo',
             accelerator: 'Shift+CmdOrCtrl+Z',
-            role: 'redo'
+            role: 'redo',
           },
           { type: 'separator' },
           { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
           { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-          { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' }
-        ]
+          { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+        ],
       },
       {
         label: 'View',
@@ -94,10 +97,10 @@ class Main {
           {
             accelerator: 'CmdOrCtrl+Alt+I',
             label: 'Open DevTools',
-            role: 'toggleDevTools'
-          }
-        ]
-      }
+            role: 'toggleDevTools',
+          },
+        ],
+      },
     ]
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
