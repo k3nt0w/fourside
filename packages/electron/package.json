@@ -93,7 +93,7 @@
     "css-loader": "^5.0.0",
     "electron-log": "4.3.5",
     "electron-store": "5.2.0",
-    "electron-updater": "4.3.5",
+    "electron-updater": "4.3.9",
     "expect": "^26.0.0",
     "formik": "^2.1.4",
     "formik-material-ui": "^3.0.0-alpha.0",
