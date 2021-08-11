@@ -47,7 +47,7 @@
     "class-validator": "0.13.1",
     "csv": "5.5.0",
     "csvtojson": "2.0.10",
-    "csv-parse": "4.15.4",
+    "csv-parse": "4.16.0",
     "date-fns": "2.22.1",
     "date-fns-tz": "1.1.4",
     "dotenv": "8.6.0",
