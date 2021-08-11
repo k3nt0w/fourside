@@ -6,7 +6,7 @@
   "scripts": {
     "rebuild:mac": "electron-rebuild",
     "rebuild:win": "./node_modules/.bin/electron-rebuild.cmd",
-    "build": "yarn build:prod",
+    "build": "yarn build:dev",
     "webpack": "webpack --config ./configs/webpack/webpack.config.ts",
     "build:local": "cross-env NODE_ENV=development DEPLOY_ENV=local yarn webpack",
     "build:dev": "cross-env NODE_ENV=development DEPLOY_ENV=dev yarn webpack",
