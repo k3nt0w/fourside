@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import { CssBaseline } from '@material-ui/core'
 import { route } from './router'
 import { registerIPCHandler } from './libs/ipc'
-import { Login } from './components/pages/login'
+import { Index } from './components/pages/Index'
 import { Home } from './components/pages/Home'
 
 const store = initializeStore()
@@ -20,7 +20,7 @@ ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path={route.LOGIN} component={Login} />
+          <Route exact path={route.LOGIN} component={Index} />
           <Route path={route.HOME} component={Home} />
         </Switch>
       </ConnectedRouter>
