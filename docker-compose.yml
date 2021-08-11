@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  fourside-db:
+    build: ./db
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3306'
+    environment:
+      TZ: 'Asia/Tokyo'
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: fourside
+
+  fourside-schema:
+    depends_on:
+      - fourside-db
+    image: schemaspy/schemaspy:snapshot
+    volumes:
+      - ./packages/erd/src:/output
+      - ./packages/erd/schemaspy.properties:/config/schemaspy.properties
+    command: ['-configFile', '/config/schemaspy.properties', '-connprops', "useSSL\\=false"]

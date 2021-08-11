@@ -1,5 +1,6 @@
 type RequestKeys = 'param' | 'query' | 'body'
-interface BaseRequest<Param, Query, Body> {
+
+export interface BaseRequest<Param, Query, Body> {
   param: Param
   query: Query
   body: Body
