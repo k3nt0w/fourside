@@ -1,2 +1,1 @@
-export { LoginForm } from './LoginForm'
-export { Sample } from './Sample'
+export const orgs = 'orgs'

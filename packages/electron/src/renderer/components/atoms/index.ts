@@ -1,1 +1,1 @@
-export { TextForm, TextFormProps } from './TextForm'
+export const atoms = 'atoms'

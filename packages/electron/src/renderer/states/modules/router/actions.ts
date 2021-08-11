@@ -1,6 +1,7 @@
+import { route } from '@renderer/router'
 import { push } from 'connected-react-router'
 
 export const actions = {
-  pushLogin: () => push('/'),
-  pushSample: () => push('/sample')
+  pushLogin: () => push(route.LOGIN),
+  pushHome: () => push(route.HOME)
 }

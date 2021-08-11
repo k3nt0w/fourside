@@ -1,3 +1,4 @@
 Fourside
-!Icon
-!lib
+!build/**
+build/Release
+*.sqlite

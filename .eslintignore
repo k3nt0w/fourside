@@ -1,3 +1,5 @@
+index.js
+electron-builder.js
 node_modules
 dist
 cjs

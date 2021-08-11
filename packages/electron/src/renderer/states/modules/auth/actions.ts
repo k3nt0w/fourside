@@ -1,16 +1,23 @@
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './action-types'
 
 export const actions = {
-  requestPostSignIn: () => ({
-    type: ActionTypes.REQUEST_POST_SIGN_IN,
-    payload: {}
-  }),
-  successPostSignIn: () => ({
-    type: ActionTypes.SUCCESS_POST_SIGN_IN,
-    payload: {}
-  }),
-  failurePostSignIn: () => ({
-    type: ActionTypes.FAILURE_POST_SIGN_IN,
-    payload: {}
-  })
+  signinRequest: () =>
+    ({
+      type: ActionTypes.SINGIN_REQUEST,
+      payload: {}
+    } as const),
+
+  signinSuccess: () =>
+    ({
+      type: ActionTypes.SINGIN_SUCCESS,
+      payload: {}
+    } as const),
+
+  signinFailure: (errorMessage: string) =>
+    ({
+      type: ActionTypes.SINGIN_FAILURE,
+      payload: {
+        errorMessage
+      }
+    } as const)
 }

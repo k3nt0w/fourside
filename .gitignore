@@ -148,3 +148,6 @@ firebase/admin.js.map
 
 # development
 .node-version
+
+# db
+db/data
