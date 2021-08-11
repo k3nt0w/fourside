@@ -1,13 +1,11 @@
 import { Reducer } from 'redux'
-import { ActionsUnion } from '@renderer/states/interfaces'
+import { ActionsUnion } from 'src/renderer/states/interfaces'
 import { actions } from './actions'
-import { ActionTypes } from './actionTypes'
-import { User } from '@fourside/interface'
+import { ActionTypes } from './action-types'
 
 export type Actions = ActionsUnion<typeof actions>
 
 export interface State {
-  user?: User
   isLoading: boolean
 }
 
@@ -17,12 +15,13 @@ export const initialState: State = {
 
 export const reducer: Reducer<State, Actions> = (state = initialState, action): State => {
   switch (action.type) {
-    case ActionTypes.REQUEST_POST_SIGN_IN:
+    case ActionTypes.SINGIN_REQUEST:
       return { ...state, isLoading: true }
-    case ActionTypes.SUCCESS_POST_SIGN_IN:
+    case ActionTypes.SINGIN_SUCCESS:
       return { ...state, isLoading: false }
-    case ActionTypes.FAILURE_POST_SIGN_IN:
+    case ActionTypes.SINGIN_FAILURE:
       return { ...state, isLoading: false }
+
     default:
       return { ...state }
   }

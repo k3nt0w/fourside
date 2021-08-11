@@ -1,6 +1,7 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
+import { args } from './utils'
 
 const mode =
   process.env.NODE_ENV === 'development' ? 'development' : process.env.NODE_ENV === 'production' ? 'production' : 'none'
@@ -22,70 +23,69 @@ export const main: webpack.Configuration = {
 
   output: {
     path: path.join(__dirname, '../..', 'dist'),
-    filename: 'main.js',
+    filename: 'main.js'
   },
 
   devtool: 'inline-source-map',
   target: 'electron-main',
 
   externals: {
-    bindings: 'commonjs bindings',
-    'cfd-js': 'commonjs cfd-js',
-    sqlite3: 'commonjs sqlite3',
-    usb: 'commonjs usb',
-    'usb-detection': 'commonjs usb-detection',
-    grpc: 'require("grpc")',
+    bindings: 'commonjs bindings'
   },
 
   node: {
     __dirname: false,
-    __filename: false,
+    __filename: false
   },
 
   resolve: {
     alias: {
       src: path.join(__dirname, '../..', 'src'),
       '@shared': path.join(__dirname, '../..', 'src/shared'),
-      '@main': path.join(__dirname, '../..', 'src/main'),
+      '@main': path.join(__dirname, '../..', 'src/main')
     },
-    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json', '.node'],
+    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json', '.node']
   },
 
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        loaders: ['ts-loader']
       },
       {
         test: /\.node$/,
-        use: 'node-loader',
-      },
-    ],
+        use: 'node-loader'
+      }
+    ]
   },
 
   plugins: [
     new webpack.EnvironmentPlugin({
-      DEPLOY_ENV: process.env.DEPLOY_ENV,
-    }),
-  ],
+      DEPLOY_ENV: process.env.DEPLOY_ENV
+    })
+  ]
 }
 
 export const renderer: webpack.Configuration = {
   mode,
   entry: {
     renderer: './src/renderer/index.tsx',
+    loading: './src/renderer/loading.tsx'
   },
 
+  // NOTE:
+  // 基本的にdev環境ではwebpack-dev-serverを用いてるためrendererの読み込み先がdevportになる。
+  // dev環境でpackageして動作確認する場合は環境変数のPACKAGEをtrueにすれば良い。
   output:
     !process.env.PACKAGE && (process.env.NODE_ENV == 'development' || process.env.DEPLOY_ENV == 'dev')
       ? {
-          publicPath: `http://localhost:8080/dist`,
-          filename: '[name].js',
+          publicPath: `http://localhost:${args.devport}/dist`,
+          filename: '[name].js'
         }
       : {
           path: path.join(__dirname, '../..', 'dist'),
-          filename: '[name].js',
+          filename: '[name].js'
         },
 
   devtool: 'inline-source-map',
@@ -93,12 +93,12 @@ export const renderer: webpack.Configuration = {
 
   externals: {
     fsevents: 'require("fsevents")',
-    worker_threads: 'require("worker_threads")',
+    worker_threads: 'require("worker_threads")'
   },
 
   node: {
     __dirname: false,
-    __filename: false,
+    __filename: false
   },
 
   resolve: {
@@ -106,52 +106,47 @@ export const renderer: webpack.Configuration = {
       src: path.join(__dirname, '../..', 'src'),
       '@renderer': path.join(__dirname, '../..', 'src/renderer'),
       '@shared': path.join(__dirname, '../..', 'src/shared'),
-      '@main': path.join(__dirname, '../..', 'src/main'),
+      '@main': path.join(__dirname, '../..', 'src/main')
     },
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json'],
-    mainFields: ['module', 'main'],
+    mainFields: ['module', 'main']
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../..', 'src/renderer/index.html'),
       chunks: ['renderer'],
-      filename: 'index.html',
+      filename: 'index.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '../..', 'src/renderer/loading.html'),
+      chunks: ['loading'],
+      filename: 'loading.html'
     }),
     new webpack.EnvironmentPlugin({
-      DEPLOY_ENV: process.env.DEPLOY_ENV,
-    }),
+      DEPLOY_ENV: process.env.DEPLOY_ENV
+    })
   ],
 
   module: {
     rules: [
       {
-        test: /\.m?js/,
-        resolve: {
-          fullySpecified: false,
-        },
-      },
-      {
         test: /\.(jpg|png|svg|eot|ttf|woff|woff2)$/,
         loader: 'file-loader',
         options: {
-          name: '[path][name].[ext]',
-        },
+          name: '[path][name].[ext]'
+        }
       },
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        loaders: ['ts-loader']
       },
       {
         test: /\.css$/,
-        loader: 'style-loader',
-      },
-      {
-        test: /\.css$/,
-        loader: 'css-loader',
-      },
-    ],
-  },
+        loaders: ['style-loader', 'css-loader']
+      }
+    ]
+  }
 }
 
 export default [main, renderer]

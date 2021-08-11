@@ -1,17 +1,17 @@
 import { ActionCreator, Store as BaseStore } from 'redux'
 import { ThunkAction as ReduxThunkAction, ThunkDispatch } from 'redux-thunk'
 
-import * as router from './modules/router'
 import * as auth from './modules/auth'
-import * as global from './modules/global'
+import * as router from './modules/router'
+import * as autoUpdater from './modules/auto-updater'
 
 export interface RootState {
   router: router.State
   auth: auth.State
-  global: global.State
+  autoUpdater: autoUpdater.State
 }
 
-export type RootAction = auth.Actions | router.Actions | global.Actions
+export type RootAction = auth.Actions | autoUpdater.Actions | router.Actions
 
 type ReduxStore = BaseStore<RootState, RootAction>
 
