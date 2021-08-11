@@ -34,9 +34,10 @@ const baseConfig = {
   win: {
     target: ['nsis']
   },
-  nsis: {
-    include: "build/installer.nsh",
-  },
+  // NOTE: windowsで依存するアプリケーションがある場合はnsh経由でインストールさせることが可能
+  // nsis: {
+  //   include: "build/installer.nsh",
+  // },
   extends: null
 }
 
