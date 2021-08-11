@@ -63,7 +63,7 @@
     "command-line-args": "5.1.1",
     "copy-webpack-plugin": "9.0.1",
     "electron": "11.4.11",
-    "electron-builder": "22.10.5",
+    "electron-builder": "22.11.7",
     "electron-devtools-installer": "3.2.0",
     "electron-notarize": "1.1.0",
     "electron-rebuild": "2.3.5",
