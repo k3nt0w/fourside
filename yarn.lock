@@ -15648,14 +15648,14 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pdf-merger-js@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/pdf-merger-js/-/pdf-merger-js-3.1.0.tgz#fa736cb98b70113eb0b4fbe11e81b2c58618a722"
-  integrity sha512-lTaaez7vTaCtTtG1YsJh6n47BkKcr1IUX5+91n8qSX8QzAoWLdfQOWcQperxoEGNsB02pJioMKbckhVnuTWqDQ==
+pdf-merger-js@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/pdf-merger-js/-/pdf-merger-js-3.2.1.tgz#ff770bbbe51ddb39a4a87cf2ffb7ab9bf3520f66"
+  integrity sha512-A2mpMzEre4EGaV33oQnGLARPUV5F+PGScsmwyOXKu+s098eZu0wEDj7vzLjRGl1AqxbsRa5Hj0VpFuh2CiEeyg==
   dependencies:
-    pdfjs "^2.4.2"
+    pdfjs "^2.4.5"
 
-pdfjs@^2.4.2:
+pdfjs@^2.4.5:
   version "2.4.5"
   resolved "https://registry.yarnpkg.com/pdfjs/-/pdfjs-2.4.5.tgz#be750f51a11921e660fbc22f6cf0b52e053d6dc0"
   integrity sha512-X/wPVmzM280luY0Oogp9VdaRgBp7Y44E0mB8/9OTZSN6T6HNokPaJiBlLfrVu9kQU1FG08599u4x+lXkB1xTbA==
