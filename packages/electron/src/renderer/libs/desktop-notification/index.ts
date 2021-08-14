@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron'
+import { ipcRenderer } from 'src/renderer/libs/electron'
 import { commonIpcMessages } from '@shared/ipc'
 import AppIcon from './icon.png'
 

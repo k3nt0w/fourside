@@ -1,8 +1,8 @@
-import { ipcRenderer } from 'electron'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
+import { ipcRenderer, ipcRendererOn } from 'src/renderer/libs/electron'
 import { autoUpdaterIpcMessagesOnReceived } from '@shared/ipc/auto-updater'
-import { Logger } from '@shared/logger'
+// import { Logger } from 'src/renderer/libs/electron'
 import { AutoUpdateMessage, AutoUpdateMessageNumber } from '@shared/interfaces'
 import { appLoading, appLoadingOnReceived } from '@shared/ipc'
 import { useEffect } from 'react'
@@ -10,24 +10,24 @@ import { isLocalDeployEnv } from '@shared/utils'
 import { Box, createStyles, LinearProgress, makeStyles } from '@material-ui/core'
 
 const ipcRendererOnWrapperForAutoUpdater = (channel: string, setMessage: (message: string) => void) => {
-  ipcRenderer.on(channel, (_: Electron.IpcRendererEvent, data: AutoUpdateMessage) => {
-    Logger.info(`ipcRendererOnWrapperForLoading: ${channel}`)
-    Logger.info(data)
+  ipcRendererOn(channel, (_: Electron.IpcRendererEvent, data: AutoUpdateMessage) => {
+    // Logger.info(`ipcRendererOnWrapperForLoading: ${channel}`)
+    // Logger.info(data)
     setMessage(data.message)
   })
 }
 
 const ipcRendererOnRecivedNumberWrapperForAutoUpdater = (channel: string, setNumber: (number: number) => void) => {
-  ipcRenderer.on(channel, (_: Electron.IpcRendererEvent, data: AutoUpdateMessageNumber) => {
-    Logger.info(`ipcRendererOnWrapperForLoading: ${channel}`)
-    Logger.info(data)
+  ipcRendererOn(channel, (_: Electron.IpcRendererEvent, data: AutoUpdateMessageNumber) => {
+    // Logger.info(`ipcRendererOnWrapperForLoading: ${channel}`)
+    // Logger.info(data)
     setNumber(data.message)
   })
 }
 
 const ipcRendererOnWrapperForAppLoading = (channel: string, setFlag: (flag: boolean) => void) => {
-  ipcRenderer.on(channel, () => {
-    Logger.info(`ipcRendererOnWrapperForAppLoading: ${channel}`)
+  ipcRendererOn(channel, () => {
+    // Logger.info(`ipcRendererOnWrapperForAppLoading: ${channel}`)
     setFlag(true)
   })
 }
@@ -60,7 +60,7 @@ const Loading = () => {
 
   useEffect(() => {
     if (isLoadedMainDom && isCheckedUpdateVersion) {
-      Logger.info(`ipcRendererInvoke: ${appLoading.SHOW_MAIN_WINDOW}`)
+      // Logger.info(`ipcRendererInvoke: ${appLoading.SHOW_MAIN_WINDOW}`)
       ipcRenderer.invoke(appLoading.SHOW_MAIN_WINDOW)
     }
   }, [isLoadedMainDom, isCheckedUpdateVersion])

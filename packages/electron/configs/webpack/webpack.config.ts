@@ -1,7 +1,6 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
-import { args } from './utils'
 
 const mode =
   process.env.NODE_ENV === 'development' ? 'development' : process.env.NODE_ENV === 'production' ? 'production' : 'none'
@@ -10,7 +9,6 @@ const GREEN = '\u001b[32m'
 const COLOR_RESET = '\u001b[0m'
 
 console.info(GREEN)
-console.info(`webpack for main and renderer`)
 console.info(`Webpack mode: ${mode}`)
 console.info(`NODE ENV: ${process.env.NODE_ENV}`)
 console.info(`DEPLOY_ENV: ${process.env.DEPLOY_ENV}`)
@@ -51,7 +49,7 @@ export const main: webpack.Configuration = {
     rules: [
       {
         test: /\.tsx?$/,
-        loaders: ['ts-loader']
+        loader: 'ts-loader'
       },
       {
         test: /\.node$/,
@@ -67,6 +65,49 @@ export const main: webpack.Configuration = {
   ]
 }
 
+export const preload: webpack.Configuration = {
+  mode,
+  entry: './src/preload/index.ts',
+
+  output: {
+    path: path.join(__dirname, '../..', 'dist'),
+    filename: 'preload.js'
+  },
+
+  devtool: 'inline-source-map',
+  target: 'electron-preload',
+
+  externals: {
+    fsevents: 'require("fsevents")',
+    worker_threads: 'require("worker_threads")'
+  },
+
+  node: {
+    __dirname: false,
+    __filename: false
+  },
+
+  resolve: {
+    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json'],
+    mainFields: ['module', 'main']
+  },
+
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      DEPLOY_ENV: process.env.DEPLOY_ENV
+    })
+  ],
+
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader'
+      }
+    ]
+  }
+}
+
 export const renderer: webpack.Configuration = {
   mode,
   entry: {
@@ -74,13 +115,10 @@ export const renderer: webpack.Configuration = {
     loading: './src/renderer/loading.tsx'
   },
 
-  // NOTE:
-  // 基本的にdev環境ではwebpack-dev-serverを用いてるためrendererの読み込み先がdevportになる。
-  // dev環境でpackageして動作確認する場合は環境変数のPACKAGEをtrueにすれば良い。
   output:
     !process.env.PACKAGE && (process.env.NODE_ENV == 'development' || process.env.DEPLOY_ENV == 'dev')
       ? {
-          publicPath: `http://localhost:${args.devport}/dist`,
+          publicPath: `http://localhost:8080/dist`,
           filename: '[name].js'
         }
       : {
@@ -89,7 +127,7 @@ export const renderer: webpack.Configuration = {
         },
 
   devtool: 'inline-source-map',
-  target: 'electron-renderer',
+  target: 'web',
 
   externals: {
     fsevents: 'require("fsevents")',
@@ -139,14 +177,28 @@ export const renderer: webpack.Configuration = {
       },
       {
         test: /\.tsx?$/,
-        loaders: ['ts-loader']
+        loader: 'ts-loader'
       },
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader']
+        loader: 'style-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader'
+      },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false
+        }
       }
     ]
   }
 }
 
-export default [main, renderer]
+export default [
+  { name: 'main', ...main },
+  { name: 'preload', ...preload },
+  { name: 'renderer', ...renderer }
+]

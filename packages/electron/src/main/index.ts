@@ -7,6 +7,7 @@ import { appLoadingOnReceived } from '@shared/ipc/app-loading'
 import { registerAppLoadingIPCHandler } from './ipc/app-loading'
 import { isDevNodeEnv, isDevWithoutAutoUpdateDeployEnv, isLocalDeployEnv } from '@shared/utils'
 import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer'
+import path from 'path'
 
 if (isLocalDeployEnv || isDevNodeEnv || process.env.WITH_DEV_TOOL) {
   app.whenReady().then(() => {
@@ -72,7 +73,9 @@ class Main {
       acceptFirstMouse: true,
       frame: false,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: false,
+        preload: path.join(__dirname, 'preload.js'),
+        contextIsolation: true
       },
       show: false
     })
@@ -84,7 +87,9 @@ class Main {
       acceptFirstMouse: true,
       frame: true,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: false,
+        preload: path.join(__dirname, 'preload.js'),
+        contextIsolation: true
       },
       show: false
     })
@@ -92,7 +97,6 @@ class Main {
     const loading = this.loadingWindow
 
     loading.setBackgroundColor(BACKGROUND_COLOR)
-    main.setBackgroundColor(BACKGROUND_COLOR)
 
     loading.loadURL(this.loadingURL)
     main.loadURL(this.mainURL)

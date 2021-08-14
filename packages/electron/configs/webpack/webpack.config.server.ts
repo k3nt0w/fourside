@@ -1,48 +1,35 @@
-import { spawn } from 'child_process'
-import webpack from 'webpack'
+import { Compiler } from 'webpack'
 import { merge } from 'webpack-merge'
 import { renderer } from './webpack.config'
-import { args } from './utils'
+import { spawn } from 'child_process'
 
-const publicPath = `http://localhost:${args.devport}/dist`
-
-export default merge(
+const devRenderer = merge(
   {
     mode: 'development',
-    entry: [
-      'react-hot-loader/patch',
-      `webpack-dev-server/client?http://localhost:${args.devport}`,
-      'webpack/hot/only-dev-server'
-    ],
-
+    entry: ['http://localhost:8080'],
     output: {
-      publicPath
+      publicPath: `http://localhost:8080/dist`,
+      filename: '[name].js'
     },
-
-    plugins: [new webpack.HotModuleReplacementPlugin()],
-
-    devtool: 'inline-source-map',
-
-    //@ts-ignore
-    devServer: {
-      port: args.devport,
-      publicPath,
-      historyApiFallback: true,
-      hot: true,
-      after() {
-        // eslint-disable-next-line no-console
-        console.log('Starting Main Process...')
-        spawn('electron', ['./dist/main.js'], {
-          shell: true,
-          env: process.env,
-          stdio: 'inherit'
-        })
-          .on('close', code => {
-            process.exit(code)
+    plugins: [
+      {
+        apply: (compiler: Compiler) => {
+          compiler.hooks.initialize.tap('InitializePlugin', () => {
+            spawn('electron', ['./dist/main.js'], {
+              shell: true,
+              env: process.env,
+              stdio: 'inherit'
+            })
+              .on('close', code => {
+                process.exit(code)
+              })
+              .on('error', spawnError => console.error(spawnError))
           })
-          .on('error', spawnError => console.error(spawnError))
+        }
       }
-    }
+    ]
   },
   renderer
 )
+
+export default [{ name: 'devRenderer', ...devRenderer }]
