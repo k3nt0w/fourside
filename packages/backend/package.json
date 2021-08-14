@@ -54,7 +54,7 @@
     "dropbox": "9.7.0",
     "envalid": "6.0.2",
     "express": "4.17.1",
-    "firebase-admin": "9.7.0",
+    "firebase-admin": "9.11.0",
     "generate-password": "1.6.1",
     "google-auth-library": "7.1.2",
     "googleapis": "67.1.1",
