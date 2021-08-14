@@ -6,7 +6,7 @@ import { spawn } from 'child_process'
 const devRenderer = merge(
   {
     mode: 'development',
-    entry: ['react-hot-loader/patch', `webpack-dev-server/client?http://localhost:8080`, 'webpack/hot/only-dev-server'],
+    entry: ['http://localhost:8080'],
     output: {
       publicPath: `http://localhost:8080/dist`,
       filename: '[name].js'
