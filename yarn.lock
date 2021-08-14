@@ -13635,10 +13635,10 @@ lzma-native@^6.0.1:
     readable-stream "^2.3.5"
     rimraf "^2.7.1"
 
-macaddress@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.5.1.tgz#5d717ad50337f96085655d5db06ebc60df11fc59"
-  integrity sha512-et8b+V48uHaOB2fyNhPWwlm2PenfcfkGmHUwuVT3lxFEhfwaKwq5VmM4Cw4MYDwMrujvF0ktA2sSJidCjZBSzg==
+macaddress@0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.5.2.tgz#0ed6c836da3b182e4400bc4594083cdd33511cc4"
+  integrity sha512-cYYBbT3b84hTEHssWE6OmsuqF/NiLXE2RGK9Sc9SwwE9kMoKrbaUAJtKs6ucd0FFgZjXE1Wm3hoGEEYas0N6EA==
 
 macos-release@^2.2.0:
   version "2.3.0"
