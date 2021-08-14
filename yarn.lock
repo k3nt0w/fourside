@@ -1743,10 +1743,10 @@
     google-gax "^2.17.1"
     protobufjs "^6.8.6"
 
-"@google-cloud/logging-winston@4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@google-cloud/logging-winston/-/logging-winston-4.0.5.tgz#42ee54f9391b2264d04e29b69cf960446d8024af"
-  integrity sha512-62Qn71rPE1zU+lIH737sWBC7XLMCTcyemM7YUTxooBMIGIZPZtyEXAfOTyelCykFWd/H0dZllPq/39eED2VIKA==
+"@google-cloud/logging-winston@4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/logging-winston/-/logging-winston-4.1.0.tgz#659dd5a1024c0f42dcaa652478d206f82cdb6715"
+  integrity sha512-JBB3Oe/GQuT0lhCyda3ltI2YXhgLqLDAMKfdgQepj58kZFLPOwuj8PwaJRBSBwb5yZBRgx5N0wk3tC+XpbOjNg==
   dependencies:
     "@google-cloud/logging" "^9.0.0"
     google-auth-library "^7.0.0"
