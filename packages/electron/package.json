@@ -92,7 +92,7 @@
     "electron-updater": "4.3.9",
     "expect": "26.0.0",
     "formik": "2.1.4",
-    "formik-material-ui": "3.0.0-alpha.0",
+    "formik-material-ui": "3.0.1",
     "fuse.js": "6.4.1",
     "history": "4.10.1",
     "lodash": "4.17.21",
