@@ -1,6 +1,7 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
+import { spawn } from 'child_process'
 
 const mode =
   process.env.NODE_ENV === 'development' ? 'development' : process.env.NODE_ENV === 'production' ? 'production' : 'none'
@@ -66,6 +67,49 @@ export const main: webpack.Configuration = {
   ]
 }
 
+export const preload: webpack.Configuration = {
+  mode,
+  entry: './src/preload/index.ts',
+
+  output: {
+    path: path.join(__dirname, '../..', 'dist'),
+    filename: 'preload.js'
+  },
+
+  devtool: 'inline-source-map',
+  target: 'electron-preload',
+
+  externals: {
+    fsevents: 'require("fsevents")',
+    worker_threads: 'require("worker_threads")'
+  },
+
+  node: {
+    __dirname: false,
+    __filename: false
+  },
+
+  resolve: {
+    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json'],
+    mainFields: ['module', 'main']
+  },
+
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      DEPLOY_ENV: process.env.DEPLOY_ENV
+    })
+  ],
+
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader'
+      }
+    ]
+  }
+}
+
 export const renderer: webpack.Configuration = {
   mode,
   entry: {
@@ -128,7 +172,22 @@ export const renderer: webpack.Configuration = {
     }),
     new webpack.EnvironmentPlugin({
       DEPLOY_ENV: process.env.DEPLOY_ENV
-    })
+    }),
+    {
+      apply: compiler => {
+        compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
+          spawn('electron', ['./dist/main.js'], {
+            shell: true,
+            env: process.env,
+            stdio: 'inherit'
+          })
+            .on('close', code => {
+              process.exit(code)
+            })
+            .on('error', spawnError => console.error(spawnError))
+        })
+      }
+    }
   ],
 
   module: {
@@ -162,47 +221,4 @@ export const renderer: webpack.Configuration = {
   }
 }
 
-export const preload: webpack.Configuration = {
-  mode,
-  entry: './src/preload/index.ts',
-
-  output: {
-    path: path.join(__dirname, '../..', 'dist'),
-    filename: 'preload.js'
-  },
-
-  devtool: 'inline-source-map',
-  target: 'electron-preload',
-
-  externals: {
-    fsevents: 'require("fsevents")',
-    worker_threads: 'require("worker_threads")'
-  },
-
-  node: {
-    __dirname: false,
-    __filename: false
-  },
-
-  resolve: {
-    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json'],
-    mainFields: ['module', 'main']
-  },
-
-  plugins: [
-    new webpack.EnvironmentPlugin({
-      DEPLOY_ENV: process.env.DEPLOY_ENV
-    })
-  ],
-
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader'
-      }
-    ]
-  }
-}
-
-export default [main, renderer, preload]
+export default [preload, main, renderer]

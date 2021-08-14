@@ -19,7 +19,7 @@
     "start": "run-s \"build:local -- --usertype {1} -devport {2}\" \"start:server --devport {2}\" -- ",
     "start:main": "electron ./dist/main.js",
     "start:server": "cross-env NODE_ENV=development DEPLOY_ENV=local webpack-cli serve --config ./configs/webpack/webpack.config.ts",
-    "watch": "run-s watch:main watch:renderer start:main",
+    "watch": "cross-env NODE_ENV=development DEPLOY_ENV=local webpack-cli serve --config ./configs/webpack/webpack.config.ts",
     "watch:main": "cross-env NODE_ENV=development DEPLOY_ENV=local webpack-cli serve --config ./configs/webpack/webpack.config.main.ts",
     "watch:renderer": "cross-env NODE_ENV=development DEPLOY_ENV=local webpack-cli serve --config ./configs/webpack/webpack.config.renderer.ts --port 8081",
     "watch:preload": "cross-env NODE_ENV=development DEPLOY_ENV=local webpack-cli serve --config ./configs/webpack/webpack.config.preload.ts --port 8082",
