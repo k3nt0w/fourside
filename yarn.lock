@@ -19206,10 +19206,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeorm-transactional-cls-hooked@0.1.20:
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/typeorm-transactional-cls-hooked/-/typeorm-transactional-cls-hooked-0.1.20.tgz#6db496b71e026d39c442612c066ddfbd029aaff6"
-  integrity sha512-y7z7axyQkfAXKM39PPjVaQHQWnWQZeu/0fShSyyfv8hPT7VtkrdkVlgvTbsd+4ltuzk/XzY96oDrmjJ4xIUm5Q==
+typeorm-transactional-cls-hooked@0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/typeorm-transactional-cls-hooked/-/typeorm-transactional-cls-hooked-0.1.21.tgz#2128b4ce203770ff926d8953dd2dd6747877b952"
+  integrity sha512-zG5bVvKCAyzedj8TqPnZYaCi9TtAv2kVNmtuZ0GMpyxIHSF6B5RmhAKqUHv3rD7xEhwmaGdMdDc1V77VI9F2Ig==
   dependencies:
     "@types/cls-hooked" "^4.2.1"
     cls-hooked "^4.2.2"
