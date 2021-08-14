@@ -1,7 +1,4 @@
-import { accountIpcMessages, AccountLoginArguments, AccountLoginResult } from '@shared/ipc'
+import { accountIpcMessages } from '@shared/ipc'
 import { ipcRendererInvokeWrapper } from './utils'
 
-export const loginIpc = ipcRendererInvokeWrapper<AccountLoginArguments, AccountLoginResult>(
-  accountIpcMessages.LOGIN,
-  false
-)
+export const loginIpc = ipcRendererInvokeWrapper(accountIpcMessages.LOGIN)

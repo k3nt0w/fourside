@@ -1,19 +1,14 @@
 import { spawn } from 'child_process'
 import webpack from 'webpack'
 import { merge } from 'webpack-merge'
-import { renderer } from './webpack.config'
-import { args } from './utils'
+import renderer from './webpack.config.renderer'
 
-const publicPath = `http://localhost:${args.devport}/dist`
+const publicPath = `http://localhost:8081/dist`
 
 export default merge(
   {
     mode: 'development',
-    entry: [
-      'react-hot-loader/patch',
-      `webpack-dev-server/client?http://localhost:${args.devport}`,
-      'webpack/hot/only-dev-server'
-    ],
+    entry: ['react-hot-loader/patch', `webpack-dev-server/client?http://localhost:8081`, 'webpack/hot/only-dev-server'],
 
     output: {
       publicPath
@@ -25,7 +20,7 @@ export default merge(
 
     //@ts-ignore
     devServer: {
-      port: args.devport,
+      port: 8081,
       publicPath,
       historyApiFallback: true,
       hot: true,
