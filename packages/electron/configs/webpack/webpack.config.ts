@@ -27,10 +27,6 @@ export const main: webpack.Configuration = {
   devtool: 'inline-source-map',
   target: 'electron-main',
 
-  externals: {
-    bindings: 'commonjs bindings'
-  },
-
   node: {
     __dirname: false,
     __filename: false
@@ -76,11 +72,6 @@ export const preload: webpack.Configuration = {
 
   devtool: 'inline-source-map',
   target: 'electron-preload',
-
-  externals: {
-    fsevents: 'require("fsevents")',
-    worker_threads: 'require("worker_threads")'
-  },
 
   node: {
     __dirname: false,
@@ -128,11 +119,6 @@ export const renderer: webpack.Configuration = {
 
   devtool: 'inline-source-map',
   target: 'web',
-
-  externals: {
-    fsevents: 'require("fsevents")',
-    worker_threads: 'require("worker_threads")'
-  },
 
   node: {
     __dirname: false,
