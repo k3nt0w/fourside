@@ -87,7 +87,7 @@
     "connected-react-router": "6.7.0",
     "cross-env": "7.0.2",
     "css-loader": "5.0.0",
-    "electron-log": "4.3.5",
+    "electron-log": "4.4.1",
     "electron-store": "5.2.0",
     "electron-updater": "4.3.9",
     "expect": "26.0.0",
