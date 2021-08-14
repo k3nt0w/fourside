@@ -115,9 +115,6 @@ export const renderer: webpack.Configuration = {
     loading: './src/renderer/loading.tsx'
   },
 
-  // NOTE:
-  // 基本的にdev環境ではwebpack-dev-serverを用いてるためrendererの読み込み先がdevportになる。
-  // dev環境でpackageして動作確認する場合は環境変数のPACKAGEをtrueにすれば良い。
   output:
     !process.env.PACKAGE && (process.env.NODE_ENV == 'development' || process.env.DEPLOY_ENV == 'dev')
       ? {

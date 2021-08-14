@@ -1,6 +1,6 @@
 import { Compiler } from 'webpack'
 import { merge } from 'webpack-merge'
-import { main, preload, renderer } from './webpack.config'
+import { renderer } from './webpack.config'
 import { spawn } from 'child_process'
 
 const devRenderer = merge(
@@ -32,8 +32,4 @@ const devRenderer = merge(
   renderer
 )
 
-export default [
-  { name: 'main', ...main },
-  { name: 'preload', ...preload },
-  { name: 'devRenderer', ...devRenderer }
-]
+export default [{ name: 'devRenderer', ...devRenderer }]
