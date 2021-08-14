@@ -1,6 +1,7 @@
-import webpack from 'webpack'
+import { Compiler } from 'webpack'
 import { merge } from 'webpack-merge'
 import { main, preload, renderer } from './webpack.config'
+import { spawn } from 'child_process'
 
 const devRenderer = merge(
   {
@@ -10,7 +11,23 @@ const devRenderer = merge(
       publicPath: `http://localhost:8080/dist`,
       filename: '[name].js'
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()]
+    plugins: [
+      {
+        apply: (compiler: Compiler) => {
+          compiler.hooks.initialize.tap('InitializePlugin', () => {
+            spawn('electron', ['./dist/main.js'], {
+              shell: true,
+              env: process.env,
+              stdio: 'inherit'
+            })
+              .on('close', code => {
+                process.exit(code)
+              })
+              .on('error', spawnError => console.error(spawnError))
+          })
+        }
+      }
+    ]
   },
   renderer
 )

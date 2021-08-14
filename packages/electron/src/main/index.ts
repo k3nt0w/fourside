@@ -97,7 +97,6 @@ class Main {
     const loading = this.loadingWindow
 
     loading.setBackgroundColor(BACKGROUND_COLOR)
-    main.setBackgroundColor(BACKGROUND_COLOR)
 
     loading.loadURL(this.loadingURL)
     main.loadURL(this.mainURL)

@@ -9,7 +9,6 @@ const GREEN = '\u001b[32m'
 const COLOR_RESET = '\u001b[0m'
 
 console.info(GREEN)
-console.info(`webpack for main and renderer`)
 console.info(`Webpack mode: ${mode}`)
 console.info(`NODE ENV: ${process.env.NODE_ENV}`)
 console.info(`DEPLOY_ENV: ${process.env.DEPLOY_ENV}`)
@@ -119,23 +118,19 @@ export const renderer: webpack.Configuration = {
   // NOTE:
   // 基本的にdev環境ではwebpack-dev-serverを用いてるためrendererの読み込み先がdevportになる。
   // dev環境でpackageして動作確認する場合は環境変数のPACKAGEをtrueにすれば良い。
-  // output:
-  //   !process.env.PACKAGE && (process.env.NODE_ENV == 'development' || process.env.DEPLOY_ENV == 'dev')
-  //     ? {
-  //         publicPath: `http://localhost:8080/dist`,
-  //         filename: '[name].js'
-  //       }
-  //     : {
-  //         path: path.join(__dirname, '../..', 'dist'),
-  //         filename: '[name].js'
-  //       },
-  output: {
-    path: path.join(__dirname, '../..', 'dist'),
-    filename: '[name].js'
-  },
+  output:
+    !process.env.PACKAGE && (process.env.NODE_ENV == 'development' || process.env.DEPLOY_ENV == 'dev')
+      ? {
+          publicPath: `http://localhost:8080/dist`,
+          filename: '[name].js'
+        }
+      : {
+          path: path.join(__dirname, '../..', 'dist'),
+          filename: '[name].js'
+        },
 
   devtool: 'inline-source-map',
-  target: 'electron-renderer',
+  target: 'web',
 
   externals: {
     fsevents: 'require("fsevents")',
