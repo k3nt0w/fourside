@@ -9,10 +9,6 @@ import { useEffect } from 'react'
 import { isLocalDeployEnv } from '@shared/utils'
 import { Box, createStyles, LinearProgress, makeStyles } from '@material-ui/core'
 
-console.log('ここloading.tsx')
-console.log(ipcRenderer)
-console.log(ipcRendererOn)
-
 const ipcRendererOnWrapperForAutoUpdater = (channel: string, setMessage: (message: string) => void) => {
   ipcRendererOn(channel, (_: Electron.IpcRendererEvent, data: AutoUpdateMessage) => {
     // Logger.info(`ipcRendererOnWrapperForLoading: ${channel}`)

@@ -1,7 +1,6 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
-import { spawn } from 'child_process'
 
 const mode =
   process.env.NODE_ENV === 'development' ? 'development' : process.env.NODE_ENV === 'production' ? 'production' : 'none'
@@ -172,22 +171,7 @@ export const renderer: webpack.Configuration = {
     }),
     new webpack.EnvironmentPlugin({
       DEPLOY_ENV: process.env.DEPLOY_ENV
-    }),
-    {
-      apply: compiler => {
-        compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
-          spawn('electron', ['./dist/main.js'], {
-            shell: true,
-            env: process.env,
-            stdio: 'inherit'
-          })
-            .on('close', code => {
-              process.exit(code)
-            })
-            .on('error', spawnError => console.error(spawnError))
-        })
-      }
-    }
+    })
   ],
 
   module: {
@@ -221,4 +205,8 @@ export const renderer: webpack.Configuration = {
   }
 }
 
-export default [preload, main, renderer]
+export default [
+  { name: 'main', ...main },
+  { name: 'preload', ...preload },
+  { name: 'renderer', ...renderer }
+]
