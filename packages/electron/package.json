@@ -109,7 +109,7 @@
     "redux-thunk": "2.3.0",
     "reflect-metadata": "0.1.13",
     "reselect": "4.0.0",
-    "semver": "7.3.4",
+    "semver": "7.3.5",
     "style-loader": "2.0.0"
   }
 }
