@@ -104,7 +104,6 @@ const Loading = () => {
             </Box>
           </Box>
         )}
-        {console.log(ipcRenderer)}
       </Box>
     </Box>
   )
