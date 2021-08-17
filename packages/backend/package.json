@@ -55,7 +55,7 @@
     "express": "4.17.1",
     "firebase-admin": "9.11.0",
     "generate-password": "1.6.1",
-    "google-auth-library": "7.1.2",
+    "google-auth-library": "7.6.2",
     "googleapis": "67.1.1",
     "mysql": "2.18.1",
     "pdf-merger-js": "3.1.0",
