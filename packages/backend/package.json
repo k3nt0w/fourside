@@ -34,7 +34,7 @@
     "@anchan828/nest-sendgrid": "0.5.7",
     "@google-cloud/logging-winston": "4.0.5",
     "@google-cloud/pubsub": "2.16.3",
-    "@google-cloud/storage": "5.8.5",
+    "@google-cloud/storage": "5.13.1",
     "@nestjs/common": "7.6.18",
     "@nestjs/config": "0.6.3",
     "@nestjs/core": "7.6.18",
