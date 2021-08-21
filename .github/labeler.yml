@@ -1,0 +1,10 @@
+"backend :computer:":
+  - "packages/backend/**"
+  - "packages/erd/**"
+  - "packages/interface/**"
+  - 'db/**'
+"frontend :art:":
+  - "packages/electron/**"
+  - "packages/interface/**"
+"ci :recycle:":
+  - '.github/workflows/**'
