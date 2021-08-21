@@ -1,1 +1,15 @@
-{ "extends": ["config:base"] }
+{
+  "extends": ["config:base"],
+  "timezone": "Asia/Tokyo",
+  "labels": ["dependencies :package:"],
+  "schedule": ["every weekend"],
+  "semanticCommits": true,
+  "semanticCommitScope": null,
+  "ignorePaths": [".github/"],
+  "packageRules": [
+    {
+      "groupName": "@types/react",
+      "packageNames": ["@types/react", "@types/react-dom"]
+    }
+  ]
+}
