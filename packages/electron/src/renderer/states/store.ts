@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore, AnyAction, compose } from 'redux'
+import { applyMiddleware, combineReducers, createStore, AnyAction, compose, PreloadedState } from 'redux'
 
 import thunk, { ThunkMiddleware } from 'redux-thunk'
 
@@ -14,7 +14,7 @@ declare const window: Window & {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-export const initializeStore = (preloadedState?: RootState): Store => {
+export const initializeStore = (preloadedState?: PreloadedState<RootState>): Store => {
   const appReducer = combineReducers<RootState>({
     auth,
     autoUpdater,
