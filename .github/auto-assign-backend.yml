@@ -1,0 +1,14 @@
+addReviewers: true
+addAssignees: author
+numberOfReviewers: 1
+useReviewGroups: true
+reviewGroups:
+  groupA:
+    - k3nt0w
+skipKeywords:
+  - wip
+filterLabels:
+  include:
+    - "backend :computer:"
+  exclude:
+    - "wip :hand:"
