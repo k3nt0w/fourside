@@ -85,7 +85,7 @@
     "babel-plugin-import": "1.13.3",
     "connected-react-router": "6.9.1",
     "cross-env": "7.0.3",
-    "css-loader": "5.0.0",
+    "css-loader": "5.2.7",
     "electron-log": "4.4.1",
     "electron-store": "8.0.0",
     "electron-updater": "4.3.9",
