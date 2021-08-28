@@ -42,7 +42,7 @@
     "@fourside/nestjs-firebase": "1.0.0",
     "class-transformer": "0.4.0",
     "class-validator": "0.13.1",
-    "csv-parse": "4.16.0",
+    "csv-parse": "4.16.2",
     "date-fns": "2.23.0",
     "date-fns-tz": "1.1.6",
     "dotenv": "10.0.0",
