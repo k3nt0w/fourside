@@ -15,7 +15,7 @@
   ],
   "devDependencies": {
     "@nestjs/common": "8.0.6",
-    "@nestjs/core": "8.0.6",
+    "@nestjs/core": "9.0.5",
     "@nestjs/testing": "8.0.6",
     "@slack/webhook": "6.0.0",
     "firebase-admin": "9.11.1",
