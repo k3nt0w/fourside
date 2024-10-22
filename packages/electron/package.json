@@ -35,9 +35,9 @@
     "yarn": "^1.16.0"
   },
   "devDependencies": {
-    "@babel/core": "7.15.0",
-    "@babel/preset-env": "7.15.0",
-    "@babel/register": "7.15.3",
+    "@babel/core": "7.25.9",
+    "@babel/preset-env": "7.25.9",
+    "@babel/register": "7.25.9",
     "@storybook/addon-actions": "6.3.7",
     "@storybook/addon-backgrounds": "6.3.7",
     "@storybook/addon-knobs": "6.2.9",
